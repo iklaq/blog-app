@@ -1,0 +1,80 @@
+main {
+  padding: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+header a {
+  text-decoration: none;
+  color: black;
+}
+
+.logo {
+  font-weight: bold;
+}
+
+header nav {
+  display: flex;
+  gap: 15px;
+}
+
+.post {
+  display: grid;
+  grid-template-columns: 0.8fr 2.5fr;
+  margin-bottom: 30px;
+}
+
+.post-image img {
+  max-width: 50%;
+  margin-top: 20px;
+}
+
+.post-text h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.post-text p {
+  margin-bottom: 0px;
+}
+
+.post-deatails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 65%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.form input {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.form button {
+  padding: 10px;
+  background-color: rgb(8, 29, 129);
+  color: white;
+  font-weight: bold;
+}
+
+.login-page h1 {
+  text-align: center;
+}
+
+.register-page h1 {
+  text-align: center;
+}
