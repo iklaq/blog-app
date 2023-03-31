@@ -1,24 +1,24 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const user = require("./models/user");
 
 const app = express();
 const salt = bcrypt.genSaltSync(10);
+const secret = "asdsf32rfsdr2wfsf32rfgbhyh4";
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.urlencoded());
 app.use(express.json());
 
-
-  try {
-    mongoose.connect("mongodb://127.0.0.1:27017/blog-app")
-    console.log("database connection done");
-  }
-  catch(e) {
-    console.log("database does not connect");
-  };
+try {
+  mongoose.connect("mongodb://127.0.0.1:27017/blog-app");
+  console.log("database connection done");
+} catch (e) {
+  console.log("database does not connect");
+}
 
 app.get("/", (req, res) => {
   res.send("homepage");
@@ -32,15 +32,30 @@ app.post("/register", async (req, res) => {
     password: bcrypt.hashSync(password, salt),
   });
 
-  
-    try {
-      await userDoc.save()
-      console.log("data stored successfully");
-      res.json(userDoc);
-    }
-    catch(e) {
-      console.log("data does not stored");
-    };
+  try {
+    await userDoc.save();
+    console.log("data stored successfully");
+    res.json(userDoc);
+  } catch (e) {
+    console.log("data does not stored");
+  }
+});
+
+app.post("/login", async (req, res) => {
+  const { userName, password } = req.body;
+  console.log(req.body);
+
+  const userDoc = await user.findOne({ userName });
+  const isCorrectPassword = bcrypt.compareSync(password, userDoc.password);
+
+  if (isCorrectPassword) {
+    jwt.sign({ userName, id: userDoc._id }, secret, {}, (error, token) => {
+      if (error) throw error;
+      res.cookie("token", token).json("ok");
+    });
+  } else {
+    res.status(400).json("wrong credentials");
+  }
 });
 
 app.listen(4000, () => {
