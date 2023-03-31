@@ -21,7 +21,7 @@ app.use(express.json());
   };
 
 app.get("/", (req, res) => {
-  res.send("ho");
+  res.send("homepage");
 });
 
 app.post("/register", async (req, res) => {
