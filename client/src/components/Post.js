@@ -7,7 +7,6 @@ const Post = () => {
           alt=""
         />
       </div>
-
       <div className="post-text">
         <h2>skjdfbksjdjf nnjjd</h2>
         <div className="post-deatails">
