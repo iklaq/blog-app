@@ -11,14 +11,14 @@ app.use(cors());
 app.use(express.urlencoded());
 app.use(express.json());
 
-mongoose
-  .connect("mongodb://127.0.0.1:27017/blog-app")
-  .try(() => {
+
+  try {
+    mongoose.connect("mongodb://127.0.0.1:27017/blog-app")
     console.log("database connection done");
-  })
-  .catch(() => {
+  }
+  catch(e) {
     console.log("database does not connect");
-  });
+  };
 
 app.get("/", (req, res) => {
   res.send("ho");
@@ -32,15 +32,15 @@ app.post("/register", async (req, res) => {
     password: bcrypt.hashSync(password, salt),
   });
 
-  await userDoc
-    .save()
-    .try(() => {
+  
+    try {
+      await userDoc.save()
       console.log("data stored successfully");
       res.json(userDoc);
-    })
-    .catch(() => {
+    }
+    catch(e) {
       console.log("data does not stored");
-    });
+    };
 });
 
 app.listen(4000, () => {
