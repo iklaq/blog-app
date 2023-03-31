@@ -6,17 +6,18 @@ const RegisterPage = () => {
 
   const register = async (event) => {
     event.preventDefault();
-    await fetch("http://localhost:4000/register", {
-      method: "POST",
-      body: JSON.stringify({ userName, password }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .try(() => {
-        alert("signed UP successfully");
-      })
-      .catch(() => {
+   
+      try {
+        await fetch("http://localhost:4000/register", {
+          method: "POST",
+          body: JSON.stringify({ userName, password }),
+          headers: { "Content-Type": "application/json" },
+        })
+        
+      }
+      catch(e) {
         console.log("try again");
-      });
+      };
   };
 
   return (
