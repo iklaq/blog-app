@@ -78,3 +78,13 @@ header nav {
 .register-page h1 {
   text-align: center;
 }
+
+.logout-btn{
+
+  color: rgb(234, 251, 221);
+  background-color: black;
+  padding: 5px;
+  cursor: pointer;
+ 
+  
+}

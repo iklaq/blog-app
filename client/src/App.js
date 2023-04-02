@@ -4,9 +4,11 @@ import Layout from "./components/Layout";
 import LoginPage from "./components/LoginPage";
 import Post from "./components/Post";
 import RegisterPage from "./components/RegisterPage";
+import { UserContextProvider } from "./UserContext";
 
 const App = () => {
   return (
+    <UserContextProvider>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Post />} />
@@ -14,6 +16,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
       </Route>
     </Routes>
+    </UserContextProvider>
   );
 };
 

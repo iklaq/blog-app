@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
+const cookieParser = require('cookie-parser')
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const user = require("./models/user");
@@ -12,6 +13,7 @@ const secret = "asdsf32rfsdr2wfsf32rfgbhyh4";
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.urlencoded());
 app.use(express.json());
+app.use(cookieParser());
 
 try {
   mongoose.connect("mongodb://127.0.0.1:27017/blog-app");
@@ -51,12 +53,33 @@ app.post("/login", async (req, res) => {
   if (isCorrectPassword) {
     jwt.sign({ userName, id: userDoc._id }, secret, {}, (error, token) => {
       if (error) throw error;
-      res.cookie("token", token).json("ok");
+      res.cookie("token", token).json({
+        id:userDoc._id,
+        userName,
+      });
     });
   } else {
     res.status(400).json("wrong credentials");
   }
 });
+
+app.get('/profile', (req,res) => {
+
+     const {token} = req.cookies;
+     jwt.verify(token, secret, {}, (err,info)=>{
+      if(err) throw err;
+      res.json(info)
+     })
+     
+})
+
+app.post('/logout', (req,res)=> {
+  
+  res.cookie('token','').json('ok');
+    
+})
+
+
 
 app.listen(4000, () => {
   console.log("portt is running on port 4000");
