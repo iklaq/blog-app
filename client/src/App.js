@@ -5,6 +5,7 @@ import LoginPage from "./components/LoginPage";
 import Post from "./components/Post";
 import RegisterPage from "./components/RegisterPage";
 import { UserContextProvider } from "./UserContext";
+import CreatePost from "./components/CreatePost";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route index element={<Post />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/create" element={<CreatePost/>}/>
       </Route>
     </Routes>
     </UserContextProvider>
