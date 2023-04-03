@@ -6,7 +6,7 @@ const LoginPage = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
-  const {setUserInfo} = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext);
 
   const login = async (event) => {
     event.preventDefault();
@@ -20,13 +20,11 @@ const LoginPage = () => {
       });
 
       if (response.ok) {
-        response.json().then(userInfo => {
+        response.json().then((userInfo) => {
           setUserInfo(userInfo);
           setRedirect(true);
-
-        })
+        });
         alert("login successful");
-        
       } else {
         alert("login failed");
       }

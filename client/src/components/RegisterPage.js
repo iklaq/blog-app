@@ -6,7 +6,6 @@ const RegisterPage = () => {
 
   const register = async (event) => {
     event.preventDefault();
-
     try {
       const response = await fetch("http://localhost:4000/register", {
         method: "POST",

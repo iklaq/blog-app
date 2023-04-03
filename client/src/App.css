@@ -79,12 +79,9 @@ header nav {
   text-align: center;
 }
 
-.logout-btn{
-
+.logout-btn {
   color: rgb(234, 251, 221);
   background-color: black;
   padding: 5px;
   cursor: pointer;
- 
-  
 }

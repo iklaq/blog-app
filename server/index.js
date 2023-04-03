@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
-const cookieParser = require('cookie-parser')
+const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const user = require("./models/user");
@@ -54,7 +54,7 @@ app.post("/login", async (req, res) => {
     jwt.sign({ userName, id: userDoc._id }, secret, {}, (error, token) => {
       if (error) throw error;
       res.cookie("token", token).json({
-        id:userDoc._id,
+        id: userDoc._id,
         userName,
       });
     });
@@ -63,23 +63,17 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get('/profile', (req,res) => {
+app.get("/profile", (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, (err, info) => {
+    if (err) throw err;
+    res.json(info);
+  });
+});
 
-     const {token} = req.cookies;
-     jwt.verify(token, secret, {}, (err,info)=>{
-      if(err) throw err;
-      res.json(info)
-     })
-     
-})
-
-app.post('/logout', (req,res)=> {
-  
-  res.cookie('token','').json('ok');
-    
-})
-
-
+app.post("/logout", (req, res) => {
+  res.cookie("token", "").json("ok");
+});
 
 app.listen(4000, () => {
   console.log("portt is running on port 4000");
